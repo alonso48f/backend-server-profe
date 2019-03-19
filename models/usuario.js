@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 
 var rolesValidos = {
-    values: ['ADMIN_ROLE', 'USER_ROLE'],
+    values: ['ADMIN_ROLE', 'USER_ROLE', 'TECNICO_ROLE', 'ALMACENISTA_ROLE'],
     message: '{VALUE} no es un rol permitido'
 };
 
@@ -17,7 +17,8 @@ var usuarioSchema = new Schema({
     password: { type: String, required: [true, 'La contraseña es necesaria'] },
     img: { type: String, required: false },
     role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos },
-    google: { type: Boolean, required: true, default: false }
+    google: { type: Boolean, required: true, default: false },
+    timestamp: { type: Date, default: Date.now }
 });
 
 usuarioSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
