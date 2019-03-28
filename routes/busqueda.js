@@ -2,6 +2,8 @@ var express = require('express');
 
 var app = express();
 
+var Soporte = require('../models/soporte');
+var Emonitoria = require('../models/emonitoria');
 var Hospital = require('../models/hospital');
 var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
@@ -23,12 +25,12 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
             promesa = buscarUsuarios(busqueda, regex);
             break;
 
-        case 'medicos':
-            promesa = buscarMedicos(busqueda, regex);
+        case 'emonitoria':
+            promesa = buscarEmonitoria(busqueda, regex);
             break;
 
-        case 'hospitales':
-            promesa = buscarHospitales(busqueda, regex);
+        case 'soporte':
+            promesa = buscarSoporte(busqueda, regex);
             break;
 
         default:
@@ -62,16 +64,16 @@ app.get('/todo/:busqueda', (req, res, next) => {
 
 
     Promise.all([
-            buscarHospitales(busqueda, regex),
-            buscarMedicos(busqueda, regex),
+            buscarSoporte(busqueda, regex),
+            buscarEmonitoria(busqueda, regex),
             buscarUsuarios(busqueda, regex)
         ])
         .then(respuestas => {
 
             res.status(200).json({
                 ok: true,
-                hospitales: respuestas[0],
-                medicos: respuestas[1],
+                soporte: respuestas[0],
+                emonitoria: respuestas[1],
                 usuarios: respuestas[2]
             });
         })
@@ -80,21 +82,24 @@ app.get('/todo/:busqueda', (req, res, next) => {
 });
 
 
-function buscarHospitales(busqueda, regex) {
+function buscarSoporte(busqueda, regex) {
+
 
     return new Promise((resolve, reject) => {
-
-        Hospital.find({ nombre: regex })
-            .populate('usuario', 'nombre email')
-            .exec((err, hospitales) => {
-
+        Soporte.find({ lugarmantenimiento: regex })
+            // metodo para realizar identificacion de los id en los metodos de busqueda
+            .populate('usuario', 'nombre email role')
+            .populate('emonitoria')
+            .exec((err, soporte) => {
                 if (err) {
-                    reject('Error al cargar hospitales', err);
+                    reject('Error al cargar lugar de mantenimiento de soporte', err);
+
                 } else {
-                    resolve(hospitales)
+                    resolve(soporte)
                 }
             });
     });
+
 }
 
 function buscarMedicos(busqueda, regex) {

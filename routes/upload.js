@@ -7,8 +7,8 @@ var fs = require('fs');
 var app = express();
 
 var Usuario = require('../models/usuario');
-var Medico = require('../models/medico');
-var Hospital = require('../models/hospital');
+var Emonitoria = require('../models/emonitoria');
+var Soporte = require('../models/soporte');
 
 
 // default options
@@ -23,7 +23,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var id = req.params.id;
 
     // tipos de colección
-    var tiposValidos = ['hospitales', 'medicos', 'usuarios'];
+    var tiposValidos = ['soporte', 'emonitoria', 'usuarios'];
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
@@ -134,33 +134,33 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
     }
 
-    if (tipo === 'medicos') {
+    if (tipo === 'emonitoria') {
 
-        Medico.findById(id, (err, medico) => {
+        Emonitoria.findById(id, (err, emonitoria) => {
 
-            if (!medico) {
+            if (!emonitoria) {
                 return res.status(400).json({
                     ok: true,
-                    mensaje: 'Médico no existe',
-                    errors: { message: 'Médico no existe' }
+                    mensaje: 'el equipo de monitoria no existe',
+                    errors: { message: 'Equipo de monitoria no existe' }
                 });
             }
 
-            var pathViejo = './uploads/medicos/' + medico.img;
+            var pathViejo = './uploads/emonitoria/' + emonitoria.img;
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
                 fs.unlink(pathViejo);
             }
 
-            medico.img = nombreArchivo;
+            emonitoria.img = nombreArchivo;
 
-            medico.save((err, medicoActualizado) => {
+            emonitoria.save((err, emonitoriaActualizado) => {
 
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de médico actualizada',
-                    usuario: medicoActualizado
+                    usuario: emonitoriaActualizado
                 });
 
             })
@@ -168,33 +168,33 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
         });
     }
 
-    if (tipo === 'hospitales') {
+    if (tipo === 'soporte') {
 
-        Hospital.findById(id, (err, hospital) => {
+        Hospital.findById(id, (err, soporte) => {
 
-            if (!hospital) {
+            if (!soporte) {
                 return res.status(400).json({
                     ok: true,
-                    mensaje: 'Hospital no existe',
+                    mensaje: 'el id del soporte no existe',
                     errors: { message: 'Hospital no existe' }
                 });
             }
 
-            var pathViejo = './uploads/hospitales/' + hospital.img;
+            var pathViejo = './uploads/soporte/' + soporte.img;
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
                 fs.unlink(pathViejo);
             }
 
-            hospital.img = nombreArchivo;
+            soporte.img = nombreArchivo;
 
-            hospital.save((err, hospitalActualizado) => {
+            soporte.save((err, soporteActualizado) => {
 
                 return res.status(200).json({
                     ok: true,
-                    mensaje: 'Imagen de hospital actualizada',
-                    usuario: hospitalActualizado
+                    mensaje: 'Imagen de soporte actualizada',
+                    usuario: soporteActualizado
                 });
 
             })
