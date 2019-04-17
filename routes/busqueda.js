@@ -36,7 +36,7 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
         default:
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Los tipos de busqueda sólo son: usuarios, medicos y hospitales',
+                mensaje: 'Los tipos de busqueda sólo son: usuarios, emonitoria y soporte',
                 error: { message: 'Tipo de tabla/coleccion no válido' }
             });
 
@@ -89,7 +89,7 @@ function buscarSoporte(busqueda, regex) {
         Soporte.find({ lugarmantenimiento: regex })
             // metodo para realizar identificacion de los id en los metodos de busqueda
             .populate('usuario', 'nombre email role')
-            .populate('emonitoria')
+            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa')
             .exec((err, soporte) => {
                 if (err) {
                     reject('Error al cargar lugar de mantenimiento de soporte', err);
@@ -102,19 +102,19 @@ function buscarSoporte(busqueda, regex) {
 
 }
 
-function buscarMedicos(busqueda, regex) {
+function buscarEmonitoria(busqueda, regex) {
 
     return new Promise((resolve, reject) => {
 
-        Medico.find({ nombre: regex })
+        Emonitoria.find({ ninventario: regex })
             .populate('usuario', 'nombre email')
-            .populate('hospital')
-            .exec((err, medicos) => {
+            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa')
+            .exec((err, emonitoria) => {
 
                 if (err) {
-                    reject('Error al cargar medicos', err);
+                    reject('Error al cargar los equipos', err);
                 } else {
-                    resolve(medicos)
+                    resolve(emonitoria)
                 }
             });
     });

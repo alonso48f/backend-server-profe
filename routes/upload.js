@@ -160,7 +160,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de médico actualizada',
-                    usuario: emonitoriaActualizado
+                    emonitoria: emonitoriaActualizado
                 });
 
             })
@@ -170,7 +170,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
     if (tipo === 'soporte') {
 
-        Hospital.findById(id, (err, soporte) => {
+        Soporte.findById(id, (err, soporte) => {
 
             if (!soporte) {
                 return res.status(400).json({
@@ -194,7 +194,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de soporte actualizada',
-                    usuario: soporteActualizado
+                    soporte: soporteActualizado
                 });
 
             })

@@ -18,13 +18,13 @@ app.get('/', (req, res, next) => {
     // parametro para paginar desde que registro se quiere
     var desde = req.query.desde || 0;
     desde = Number(desde);
-// ver los equipos  con populate los ID  
+    // ver los equipos  con populate los ID  
     Emonitoria.find({}, )
-    // metodo skip 
-    .skip(desde)
-    // metodo para paginar 
-    .limit(5)
-    .populate('usuario','nombre email')
+        // metodo skip 
+        .skip(desde)
+        // metodo para paginar 
+        .limit(5)
+        .populate('usuario', 'nombre email')
         //con exec es la funcion para traer solo los datos que necesitamos menos la contraseña
         .exec(
 
@@ -40,7 +40,7 @@ app.get('/', (req, res, next) => {
 
 
                 // conteo de los registros
-                Emonitoria.count({},(err,conteo) => {
+                Emonitoria.count({}, (err, conteo) => {
                     res.status(200).json({
                         ok: true,
                         emonitoria: emonitorias,
@@ -52,6 +52,36 @@ app.get('/', (req, res, next) => {
 
 });
 
+// ==========================================
+// Obtener los equipos  por ID
+// ==========================================
+app.get('/:id', (req, res) => {
+    var id = req.params.id;
+    Emonitoria.findById(id)
+        .populate('usuario', 'nombre img email')
+        .exec((err, emonitoria) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: 'Error al buscar hospital',
+                    errors: err
+                });
+            }
+            if (!emonitoria) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: 'El hospital con el id ' + id + 'no existe',
+                    errors: {
+                        message: 'No existe un equipo con ese ID '
+                    }
+                });
+            }
+            res.status(200).json({
+                ok: true,
+                emonitoria: emonitoria
+            });
+        })
+})
 
 
 //  para actualizar los datos de un usuario con put
