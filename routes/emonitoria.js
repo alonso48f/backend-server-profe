@@ -63,14 +63,14 @@ app.get('/:id', (req, res) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
-                    mensaje: 'Error al buscar hospital',
+                    mensaje: 'Error al buscar el equipo de monitoria',
                     errors: err
                 });
             }
             if (!emonitoria) {
                 return res.status(400).json({
                     ok: false,
-                    mensaje: 'El hospital con el id ' + id + 'no existe',
+                    mensaje: 'El equipo con el id ' + id + 'no existe',
                     errors: {
                         message: 'No existe un equipo con ese ID '
                     }
