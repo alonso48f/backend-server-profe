@@ -9,7 +9,7 @@ var Usuario = require('../models/usuario');
 
 
 var GoogleAuth = require('google-auth-library');
-var auth = new GoogleAuth;
+//var auth = new GoogleAuth;
 
 const GOOGLE_CLIENT_ID = require('../config/config').GOOGLE_CLIENT_ID;
 const GOOGLE_SECRET = require('../config/config').GOOGLE_SECRET;
