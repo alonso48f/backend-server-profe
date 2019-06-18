@@ -89,7 +89,7 @@ function buscarSoporte(busqueda, regex) {
         Soporte.find({ lugarmantenimiento: regex })
             // metodo para realizar identificacion de los id en los metodos de busqueda
             .populate('usuario', 'nombre email role')
-            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa')
+            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa ninventario')
             .exec((err, soporte) => {
                 if (err) {
                     reject('Error al cargar lugar de mantenimiento de soporte', err);
@@ -108,7 +108,7 @@ function buscarEmonitoria(busqueda, regex) {
 
         Emonitoria.find({ ninventario: regex })
             .populate('usuario', 'nombre email')
-            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa')
+            .populate('emonitoria', 'nserie obs fadquisicion fvidautil placa ninventario')
             .exec((err, emonitoria) => {
 
                 if (err) {
