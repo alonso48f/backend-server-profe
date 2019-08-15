@@ -6,7 +6,7 @@ var estadomantenimiento = {
 };
 
 var SoporteSchema = new Schema({
-    ordenservicio: { type: Number },
+    soporte: { type: Number },
     soporteusuario: { type: String },
     tecnico: { type: String },
     lugarmantenimiento: { type: String },
