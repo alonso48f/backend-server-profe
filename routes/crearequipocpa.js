@@ -19,24 +19,29 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
-    var hospital = new Hospital({
-        nombre: body.nombre,
+    var crearequipocpa = new Crearequipocpa({
+        esn: body.esn,
+        auth: body.auth,
+        contrato: body.contrato,
+        year: body.year,
+        fecharegistro: body.fecharegistro,
+        fechavencido: body.fechavencido,
         usuario: req.usuario._id
     });
 
-    hospital.save((err, hospitalGuardado) => {
+    crearequipocpa.save((err, equipoGuardado) => {
 
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear hospital',
+                mensaje: 'Error al crear equipo',
                 errors: err
             });
         }
 
         res.status(201).json({
             ok: true,
-            hospital: hospitalGuardado
+            crearequipocpa: equipoGuardado
         });
 
 
