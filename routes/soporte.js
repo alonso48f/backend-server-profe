@@ -150,7 +150,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
     var body = req.body;
 
-    Soporte.findById(id, (err, usuario) => {
+    Soporte.findById(id, (err, soporte) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -189,7 +189,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
             res.status(200).json({
                 ok: true,
-                usuario: usuarioGuardado
+                soporte: soporteGuardado
             });
         });
 

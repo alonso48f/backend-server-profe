@@ -168,53 +168,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
     });
 
 });
-//  para actualizar los datos de un usuario con put
 
-// app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
-//     var id = req.params.id;
-//     var body = req.body;
-
-//     Emonitoria.findById(id, (err, usuario) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 ok: false,
-//                 mensaje: 'error al buscar un equipo de monitoria ',
-//                 errors: err
-//             });
-//         }
-//         if (!emonitoria) {
-//             return res.status(400).json({
-//                 ok: false,
-//                 mensaje: 'el equipo de monitoria con ese Id ' + id + 'no existe',
-//                 errors: { message: 'no existe un equipo de monitoria con ese id' }
-//             });
-//         }
-
-//         emonitoria.placa = body.placa;
-//         emonitoria.ninventario = body.ninventario;
-//         emonitoria.nserie = body.nserie;
-//         emonitoria.fadquisicion = body.fadquisicion;
-//         emonitoria.fvidautil = body.fvidautil;
-//         emonitoria.obs = body.obs;
-//         emonitoria.usuario = req.usuario._id;
-
-//         emonitoria.save((err, emonitoriaGuardado) => {
-//             if (err) {
-//                 return res.status(400).json({
-//                     ok: false,
-//                     mensaje: 'error al actualizar usuario ',
-//                     errors: err
-//                 });
-//             }
-//             res.status(200).json({
-//                 ok: true,
-//                 usuario: usuarioGuardado
-//             });
-//         });
-
-//     });
-
-// });
 
 // metodo para eliminar un id
 
