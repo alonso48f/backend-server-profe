@@ -9,7 +9,7 @@ var app = express();
 // hay que importar el modelo usuario para traer todas sus caracteristicas
 var Soporte = require('../models/soporte');
 //var SEED = require('../config/config').SEED;
-var mdAutenticacion = require('../middlewares/autenticacion');
+
 
 // ruta principal 
 

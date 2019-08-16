@@ -24,6 +24,7 @@ var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
 var loginRoutes = require('./routes/login');
 var crearequipocpaRoutes = require('./routes/crearequipocpa');
+var crearequipocpa1Routes = require('./routes/crearequipocpa1');
 var emonitoriaRoutes = require('./routes/emonitoria');
 var soporteRoutes = require('./routes/soporte');
 var hospitalRoutes = require('./routes/hospital');
@@ -51,7 +52,7 @@ mongoose.connection.openUri('mongodb://localhost:27017/baididb', (err, res) => {
 
 // Rutas
 app.use('/usuario', usuarioRoutes);
-
+app.use('/crearequipocpa1',crearequipocpa1Routes); 
 app.use('/soporte', soporteRoutes);
 app.use('/crearequipocpa',crearequipocpaRoutes);
 app.use('/emonitoria', emonitoriaRoutes);
