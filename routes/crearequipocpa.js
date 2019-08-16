@@ -125,7 +125,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
     var body = req.body;
 
-    Emonitoria.findById(id, (err, emonitoria) => {
+    Crearequipocpa.findById(id, (err, crearequipocpa) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -133,23 +133,23 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
                 errors: err
             });
         }
-        if (!emonitoria) {
+        if (!crearequipocpa) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'el emonitoria con ese Id ' + id + 'no existe',
-                errors: { message: 'no existe un emonitoria con ese id' }
+                mensaje: 'el equipo con ese Id ' + id + 'no existe',
+                errors: { message: 'no existe un equipo con ese id' }
             });
         }
 
-        emonitoria.placa = body.placa;
-        emonitoria.ninventario = body.ninventario;
-        emonitoria.nserie = body.nserie;
-        emonitoria.fadquisicion = body.fadquisicion;
-        emonitoria.fvidautil = body.fvidautil;
-        emonitoria.obs = body.obs;
-        emonitoria.usuario = req.usuario._id;
+        crearequipocpa.esn = body.esn;
+        crearequipocpa.auth = body.auth;
+        crearequipocpa.contrato = body.contrato;
+        crearequipocpa.year = body.year;
+        crearequipocpa.fecharegistro = body.fecharegistro;
+        crearequipocpa.fechavencido = body.fechavencido;
+        crearequipocpa.usuario = req.usuario._id;
 
-        emonitoria.save((err, emonitoriaGuardado) => {
+        crearequipocpa.save((err, crearequipocpaGuardado) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -161,7 +161,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
             res.status(200).json({
                 ok: true,
-                emonitoria: emonitoriaGuardado
+                crearequipocpa: crearequipocpaGuardado
             });
         });
 
@@ -170,51 +170,51 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 });
 //  para actualizar los datos de un usuario con put
 
-app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
-    var id = req.params.id;
-    var body = req.body;
+// app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
+//     var id = req.params.id;
+//     var body = req.body;
 
-    Emonitoria.findById(id, (err, usuario) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                mensaje: 'error al buscar un equipo de monitoria ',
-                errors: err
-            });
-        }
-        if (!emonitoria) {
-            return res.status(400).json({
-                ok: false,
-                mensaje: 'el equipo de monitoria con ese Id ' + id + 'no existe',
-                errors: { message: 'no existe un equipo de monitoria con ese id' }
-            });
-        }
+//     Emonitoria.findById(id, (err, usuario) => {
+//         if (err) {
+//             return res.status(500).json({
+//                 ok: false,
+//                 mensaje: 'error al buscar un equipo de monitoria ',
+//                 errors: err
+//             });
+//         }
+//         if (!emonitoria) {
+//             return res.status(400).json({
+//                 ok: false,
+//                 mensaje: 'el equipo de monitoria con ese Id ' + id + 'no existe',
+//                 errors: { message: 'no existe un equipo de monitoria con ese id' }
+//             });
+//         }
 
-        emonitoria.placa = body.placa;
-        emonitoria.ninventario = body.ninventario;
-        emonitoria.nserie = body.nserie;
-        emonitoria.fadquisicion = body.fadquisicion;
-        emonitoria.fvidautil = body.fvidautil;
-        emonitoria.obs = body.obs;
-        emonitoria.usuario = req.usuario._id;
+//         emonitoria.placa = body.placa;
+//         emonitoria.ninventario = body.ninventario;
+//         emonitoria.nserie = body.nserie;
+//         emonitoria.fadquisicion = body.fadquisicion;
+//         emonitoria.fvidautil = body.fvidautil;
+//         emonitoria.obs = body.obs;
+//         emonitoria.usuario = req.usuario._id;
 
-        emonitoria.save((err, emonitoriaGuardado) => {
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    mensaje: 'error al actualizar usuario ',
-                    errors: err
-                });
-            }
-            res.status(200).json({
-                ok: true,
-                usuario: usuarioGuardado
-            });
-        });
+//         emonitoria.save((err, emonitoriaGuardado) => {
+//             if (err) {
+//                 return res.status(400).json({
+//                     ok: false,
+//                     mensaje: 'error al actualizar usuario ',
+//                     errors: err
+//                 });
+//             }
+//             res.status(200).json({
+//                 ok: true,
+//                 usuario: usuarioGuardado
+//             });
+//         });
 
-    });
+//     });
 
-});
+// });
 
 // metodo para eliminar un id
 
@@ -222,7 +222,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
     //obtenemos el id con una variable
     var id = req.params.id;
-    Emonitoria.findByIdAndRemove(id, (err, emonitoriaBorrado) => {
+    Crearequipocpa.findByIdAndRemove(id, (err, crearequipocpaBorrado) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -231,7 +231,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
             });
         }
 
-        if (!emonitoriaBorrado) {
+        if (!crearequipocpaBorrado) {
             return res.status(400).json({
                 ok: false,
                 mensaje: 'no existe un equipo con ese id ',
@@ -241,7 +241,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
         res.status(200).json({
             ok: true,
-            emonitoria: emonitoriaBorrado
+            crearequipocpa: crearequipocpaBorrado
         });
     });
 
