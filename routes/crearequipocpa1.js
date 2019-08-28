@@ -69,7 +69,7 @@ app.get('/', (req, res, next) => {
         // metodo skip 
         .skip(desde)
         // metodo para paginar 
-        .limit(5)
+        .limit(10)
         .populate('usuario', 'nombre email')
         //con exec es la funcion para traer solo los datos que necesitamos menos la contraseña
         .exec(
@@ -97,13 +97,44 @@ app.get('/', (req, res, next) => {
             });
 
 });
+
+// ==========================================
+// Obtener crearequipocpa1 por ID
+// ==========================================
+app.get('/:id', (req, res) => {
+    var id = req.params.id;
+    Crearequipocpa1.findById(id)
+    .populate('usuario', 'nombre img email')
+    .exec((err, crearequipocpa1) => {
+    if (err) {
+    return res.status(500).json({
+    ok: false,
+    mensaje: 'Error al buscar el soporte cp-a',
+    errors: err
+    });
+    }
+    if (!crearequipocpa1) {
+    return res.status(400).json({
+    ok: false,
+    mensaje: 'El soporte con el id ' + id + 'no existe',
+errors: { message: 'No existe un soporte cpa ese ID' }
+});
+}
+res.status(200).json({
+ok: true,
+crearequipocpa1: crearequipocpa1
+});
+})
+})
+
+
 //  para actualizar los datos de un usuario con put
 
 app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
     var body = req.body;
 
-    Crearequipocpa1.findById(id, (err, crearequipocpa1) => {
+    crearequipocpa1.findById(id, (err, crearequipocpa1) => {
         if (err) {
             return res.status(500).json({
                 ok: false,

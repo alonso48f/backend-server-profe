@@ -51,10 +51,10 @@ mongoose.connection.openUri('mongodb://localhost:27017/baididb', (err, res) => {
 
 
 // Rutas
-app.use('/usuario', usuarioRoutes);
-app.use('/crearequipocpa1',crearequipocpa1Routes); 
+app.use('/usuario', usuarioRoutes); 
 app.use('/soporte', soporteRoutes);
 app.use('/crearequipocpa',crearequipocpaRoutes);
+app.use('/crearequipocpa1',crearequipocpa1Routes);
 app.use('/emonitoria', emonitoriaRoutes);
 app.use('/hospital', hospitalRoutes);
 app.use('/medico', medicoRoutes);

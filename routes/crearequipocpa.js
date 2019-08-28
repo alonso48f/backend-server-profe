@@ -88,6 +88,35 @@ app.get('/', (req, res, next) => {
 });
 
 // ==========================================
+// Obtener crearequipocpa1 por ID
+// ==========================================
+app.get('/:id', (req, res) => {
+    var id = req.params.id;
+    Crearequipocpa.findById(id)
+    .populate('usuario', 'nombre img email')
+    .exec((err, crearequipocpa) => {
+    if (err) {
+    return res.status(500).json({
+    ok: false,
+    mensaje: 'Error al buscar el soporte cp-a',
+    errors: err
+    });
+    }
+    if (!crearequipocpa) {
+    return res.status(400).json({
+    ok: false,
+    mensaje: 'El equipo cp-a con el id ' + id + 'no existe',
+errors: { message: 'No existe un equipo cp-a cpa ese ID' }
+});
+}
+res.status(200).json({
+ok: true,
+crearequipocpa: crearequipocpa
+});
+})
+})
+
+// ==========================================
 // Obtener los equipos  por ID
 // ==========================================
 app.get('/:id', (req, res) => {
