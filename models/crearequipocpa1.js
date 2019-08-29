@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 var moduloperacional = { values: ['Aeropuerto', '1 Division', '2 Division', '3 Division', '4 Division'
-, '5 Division', '6 Division', '7 Division', '8 Division', 'Modulo 2', 'Modulo 3', 'Facatativa'],};
-var estadoequipo = {values: ['Activo', 'Perdido', 'Danado','Disponoble', 'Apoyo Finalizado', '']}
+, '5 Division', '6 Division', '7 Division', '8 Division', 'Modulo 2', 'Modulo 3', 'Puesto de mando'],};
+var estadoequipo = {values: ['Activo', 'Perdido', 'Fuera de servicio','Disponoble', 'Apoyo Finalizado', 'Operacional']}
 
 //var estadomantenimiento = {
    // values: ['Preventivo', 'Correctivo', 'Mantenimiento'],

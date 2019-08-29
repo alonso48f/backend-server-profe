@@ -45,7 +45,7 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear equipo en equipoguardado1',
+                mensaje: 'Error al crear equipo en equipo guardado1',
                 errors: err
             });
         }
