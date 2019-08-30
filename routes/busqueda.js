@@ -45,7 +45,7 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
         default:
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Los tipos de busqueda sólo son: usuarios, emonitoria y soporte',
+                mensaje: 'Los tipos de busqueda sólo son: usuarios, monitoria, soportemonitoria, ',
                 error: { message: 'Tipo de tabla/coleccion no válido' }
             });
 
@@ -157,10 +157,10 @@ function buscarCrearequipocpa1(busqueda, regex) {
 
     return new Promise((resolve, reject) => {
 
-        Crearequipocpa1.find({ esn: regex })
+        Crearequipocpa1.find({ nombre_equipo: regex })
             .populate('usuario', 'nombre email')
             .populate('crearequipocpa', 'esn auth contrato year fecharegistro fechavencido')
-            .populate('crearequipocpa1', 'modulo indicativo tipo elemento nombre_equipo fecha numeroequipo viabilidad fechaentrega unidad unidadmayor objetivo estructura blanco operacion subcompania responsable_material contrato modo_bateria fecha_vencimiento_bateria estado')
+            .populate('crearequipocpa1', 'modulo indicativo tipo elemento nombre_equipo fecha numeroequipo viabilidad fechaentrega unidad unidadmayor objetivo estructura blanco operacion subcompania responsable_material contrato modo_bateria fecha_vencimiento_bateria estado n_oficio')
             .exec((err, crearequipocpa1) => {
 
                 if (err) {

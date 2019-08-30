@@ -32,10 +32,9 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
         modo_bateria: body.modo_bateria,
         fecha_vencimiento_bateria: body.fecha_vencimiento_bateria,
         estado: body.estado,
+        n_oficio: body.n_oficio,
         usuario: req.usuario._id,
-        oficio: req.oficio,
         crearequipocpa: body.crearequipocpa,
-
     });
 
     crearequipocpa1.save((err, equipo1Guardado) => {
@@ -169,9 +168,6 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
         crearequipocpa1.fecha_vencimiento_bateria = body.fecha_vencimiento_bateria;
         crearequipocpa1.estado = body.estado;
         crearequipocpa1.oficio = body.oficio;
-        crearequipocpa1.fecharegistro = body.fecharegistro;
-        crearequipocpa1.fechavencido = body.fechavencido;
-
         crearequipocpa1.save((err, crearequipocpa1Guardado) => {
             if (err) {
                 return res.status(400).json({
