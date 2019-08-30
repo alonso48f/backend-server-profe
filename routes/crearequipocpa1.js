@@ -4,7 +4,7 @@ var app = express();
 var Crearequipocpa1 = require ('../models/crearequipocpa1');
 
 // ==========================================
-// Crear un nuevo equipo cp-a
+// Crear un nuevo soporte equipo cp-a
 // ==========================================
 app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
@@ -32,8 +32,6 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
         modo_bateria: body.modo_bateria,
         fecha_vencimiento_bateria: body.fecha_vencimiento_bateria,
         estado: body.estado,
-        fecharegistro: req.fecharegistro,
-        fechavencido: req.fechavencido,
         usuario: req.usuario._id,
         oficio: req.oficio,
         crearequipocpa: body.crearequipocpa,

@@ -58,7 +58,7 @@ app.get('/', (req, res, next) => {
         // metodo skip 
         .skip(desde)
         // metodo para paginar 
-        .limit(5)
+        .limit(10)
         .populate('usuario', 'nombre email')
         //con exec es la funcion para traer solo los datos que necesitamos menos la contraseña
         .exec(

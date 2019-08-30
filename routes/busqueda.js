@@ -4,9 +4,9 @@ var app = express();
 
 var Soporte = require('../models/soporte');
 var Emonitoria = require('../models/emonitoria');
-var Hospital = require('../models/hospital');
-var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
+var Crearequipocpa = require('../models/crearequipocpa');
+var Crearequipocpa1 = require ('../models/crearequipocpa1');
 
 // ==============================
 // Busqueda por colección
@@ -32,6 +32,15 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
         case 'soporte':
             promesa = buscarSoporte(busqueda, regex);
             break;
+
+            case 'crearequipocpa':
+            promesa = buscarCrearequipocpa(busqueda, regex);
+            break;
+
+            case 'crearequipocpa1':
+                promesa = buscarCrearequipocpa1(busqueda, regex);
+                break;
+            
 
         default:
             return res.status(400).json({
@@ -66,7 +75,9 @@ app.get('/todo/:busqueda', (req, res, next) => {
     Promise.all([
             buscarSoporte(busqueda, regex),
             buscarEmonitoria(busqueda, regex),
-            buscarUsuarios(busqueda, regex)
+            buscarUsuarios(busqueda, regex),
+            buscarCrearequipocpa(busqueda, regex),
+            buscarCrearequipocpa1(busqueda, regex)
         ])
         .then(respuestas => {
 
@@ -74,7 +85,9 @@ app.get('/todo/:busqueda', (req, res, next) => {
                 ok: true,
                 soporte: respuestas[0],
                 emonitoria: respuestas[1],
-                usuarios: respuestas[2]
+                usuarios: respuestas[2],
+                crearequipocpa: respuestas[3],
+                crearequipocpa1: respuestas[3],
             });
         })
 
@@ -115,6 +128,45 @@ function buscarEmonitoria(busqueda, regex) {
                     reject('Error al cargar los equipos', err);
                 } else {
                     resolve(emonitoria)
+                }
+            });
+    });
+}
+
+// metodo para la busqueda de equipos registrados cp-a
+function buscarCrearequipocpa(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Crearequipocpa.find({ esn: regex })
+            .populate('usuario', 'nombre email')
+            .populate('crearequipocpa', 'esn auth contrato year fecharegistro fechavencido')
+            .exec((err, crearequipocpa) => {
+
+                if (err) {
+                    reject('Error al cargar los equipos cp-a', err);
+                } else {
+                    resolve(crearequipocpa)
+                }
+            });
+    });
+}
+
+// metodo para la busqueda equipos con soporte registrados cp-a
+function buscarCrearequipocpa1(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Crearequipocpa1.find({ esn: regex })
+            .populate('usuario', 'nombre email')
+            .populate('crearequipocpa', 'esn auth contrato year fecharegistro fechavencido')
+            .populate('crearequipocpa1', 'modulo indicativo tipo elemento nombre_equipo fecha numeroequipo viabilidad fechaentrega unidad unidadmayor objetivo estructura blanco operacion subcompania responsable_material contrato modo_bateria fecha_vencimiento_bateria estado')
+            .exec((err, crearequipocpa1) => {
+
+                if (err) {
+                    reject('Error al cargar los equipos con soporte cp-a', err);
+                } else {
+                    resolve(crearequipocpa1)
                 }
             });
     });
