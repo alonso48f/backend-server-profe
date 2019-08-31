@@ -9,6 +9,7 @@ var app = express();
 var Usuario = require('../models/usuario');
 var Emonitoria = require('../models/emonitoria');
 var Soporte = require('../models/soporte');
+var Crearequipocpa1= require ('../models/crearequipocpa1');
 
 
 // default options
@@ -23,7 +24,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var id = req.params.id;
 
     // tipos de colección
-    var tiposValidos = ['soporte', 'emonitoria', 'usuarios'];
+    var tiposValidos = ['soporte', 'emonitoria', 'usuarios', 'crearequipocpa1'];
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
@@ -37,7 +38,7 @@ app.put('/:tipo/:id', (req, res, next) => {
         return res.status(400).json({
             ok: false,
             mensaje: 'No selecciono nada',
-            errors: { message: 'Debe de seleccionar una imagen' }
+            errors: { message: 'Debe de seleccionar una archivo' }
         });
     }
 
@@ -47,7 +48,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     // Sólo estas extensiones aceptamos
-    var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
+    var extensionesValidas = ['png', 'jpg', 'jpeg', 'pdf'];
 
     if (extensionesValidas.indexOf(extensionArchivo) < 0) {
         return res.status(400).json({
@@ -201,6 +202,41 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
         });
     }
+
+    if (tipo === 'crearequipocpa1') {
+
+        Crearequipocpa1.findById(id, (err, crearequipocpa1) => {
+
+            if (!crearequipocpa1) {
+                return res.status(400).json({
+                    ok: true,
+                    mensaje: 'el id del soporte equipo cpa  no existe',
+                    errors: { message: 'el equipo no existe n' }
+                });
+            }
+
+            var pathViejo = './uploads/crearequipocpa1/' + crearequipocpa1.img;
+
+            // Si existe, elimina la imagen anterior
+            if (fs.existsSync(pathViejo)) {
+                fs.unlink(pathViejo);
+            }
+
+            crearequipocpa1.img = nombreArchivo;
+
+            crearequipocpa1.save((err, crearequipocpa1Actualizado) => {
+
+                return res.status(200).json({
+                    ok: true,
+                    mensaje: 'Imagen de soporte actualizada',
+                    crearequipocpa1: crearequipocpa1Actualizado
+                });
+
+            })
+
+        });
+    }
+    
 
 
 }
