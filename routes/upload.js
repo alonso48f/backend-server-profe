@@ -161,7 +161,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de médico actualizada',
-                    emonitoria: emonitoriaActualizado
+                    usuario: emonitoriaActualizado
                 });
 
             })
@@ -195,7 +195,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de soporte actualizada',
-                    soporte: soporteActualizado
+                    usuario: soporteActualizado
                 });
 
             })
@@ -229,7 +229,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de soporte actualizada',
-                    crearequipocpa1: crearequipocpa1Actualizado
+                    usuario: crearequipocpa1Actualizado
                 });
 
             })
