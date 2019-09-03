@@ -174,6 +174,74 @@ app.post('/', (req, res) => {
 
 });
 
+function obtenerMenu(ROLE){
+    menu: menu = [
+        {
+          titulo: 'Principal',
+          icono: 'mdi mdi-gauge',
+          submenu: [
+            {titulo: 'Dashboard', url: '/dashboard'},
+            {titulo: 'ProgressBar', url: '/progress'},
+            {titulo: 'Graficas', url: '/graficas1'},
+           //{titulo: 'Registros', url: '/registrosmonitoria'},crear
+          ]
+    
+        },
+        {
+          titulo: 'Compañia A',
+            icono: ' mdi mdi-near-me',
+            submenu: [
+              {titulo: 'Crear Equipo ', url: '/crearequipocpa'},
+              //{titulo: 'Mantenimientos', url: '/mantenimientomonitoria'},
+              {titulo: 'Estadistica', url: '/'},
+              {titulo: 'Buscar Soporte', url: '/buscarsoportecpa'},
+            ]
+      
+          },
+        {
+        titulo: 'Monitoria',
+          icono: ' mdi mdi-crown',
+          submenu: [
+            {titulo: 'Crear Equipo', url: '/crearequipo'},
+            {titulo: 'Mantenimientos', url: '/mantenimientomonitoria'},
+            {titulo: 'Soporte', url: '/soportemonitoria'},
+            //{titulo: 'Registros', url: '/registrosmonitoria'},
+          ]
+    
+        },
+        {
+          titulo: 'Administracion',
+            icono: ' mdi mdi-human-greeting',
+            submenu: [
+              {titulo: 'Registro Usuarios', url: '/register'},
+              {titulo: 'Mantenimientos', url: '/'},
+              //{titulo: 'Usuarios', url: '/usuarios'},
+              //{titulo: 'Graficas', url: '/graficas1'},
+              //{titulo: 'Registros', url: '/registrosmonitoria'},
+            ]
+      
+          },
+          {
+            titulo: 'Almacen',
+              icono: ' mdi mdi-home',
+              submenu: [
+                {titulo: 'Inventarios', url: '/'},
+                {titulo: 'Ingresos', url: '/'},
+                {titulo: 'Salidas', url: '/'},
+                //{titulo: 'Registros', url: '/registrosmonitoria'},
+              ]
+        
+            },
+    
+      ];
+
+      if (ROLE ==='ADMIN_ROLE') {
+          menu[4].submenu.unshift({titulo: 'Usuarios', url: '/usuarios'})
+      }
+
+    return menu;
+}
+
 
 
 
