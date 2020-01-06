@@ -11,6 +11,7 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
     var body = req.body;
 
     var crearequipocpa1 = new Crearequipocpa1({
+        year_creacion: body.year_creacion,
         modulo: body.modulo,
         indicativo: body.indicativo,
         tipo: body.tipo,
@@ -147,6 +148,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
             });
         }
 
+        crearequipocpa1.modulo = body.year_creacion;
         crearequipocpa1.modulo = body.modulo;
         crearequipocpa1.indicativo = body.indicativo;
         crearequipocpa1.tipo = body.tipo;

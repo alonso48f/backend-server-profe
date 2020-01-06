@@ -32,6 +32,7 @@ var crearequipocpa1Schema = new Schema({
     estado: { type: String, default: 'Activo', enum: estadoequipo },
     n_oficio:{ type: String,  },
     img: { type: String, required: false },
+    year_creacion : { type: String, required: false },
     timestamp: { type: Date, default: Date.now },
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario' },
     crearequipocpa: { type: Schema.Types.ObjectId, ref: 'Crearequipocpa', required: [true, 'el id del equipo es necesario'] },
